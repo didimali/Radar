@@ -15,6 +15,7 @@ public class faultType {
 	private String faultName;//	故障名称
 	private String faultPrinciple;//	故障机理
 	private Integer faultLevel;//	故障级别
+	private String remarks; //备注，后续可根据需要填写故障位置等内容
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -50,5 +51,13 @@ public class faultType {
 
 	public void setFaultLevel(Integer faultLevel) {
 		this.faultLevel = faultLevel;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }

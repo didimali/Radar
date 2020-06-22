@@ -6,6 +6,7 @@ import radar.UI.ContentPanel.ManagerExportExcel;
 import radar.UI.ContentPanel.ManagerFault;
 import radar.UI.ContentPanel.ManagerHealth;
 import radar.UI.ContentPanel.ManagerList;
+
 import radar.UI.ContentPanel.ManagerPartsComsume;
 import radar.UI.ContentPanel.NewManager;
 import radar.UI.ContentPanel.NewRadar;
@@ -81,10 +82,7 @@ public class Home extends JPanel implements InitUIAndAction {
 	public void initUI() {
 		
 		//页面组件初始化
-//		LManager leftPanel = new LManager();
-//		leftPanel.b1();
-//		add(leftPanel, BorderLayout.WEST);
-		
+	
 		LManager leftPanel = new LManager();
 //		LRadar leftPanel = new LRadar();
 		leftPanel.b1();
@@ -98,7 +96,13 @@ public class Home extends JPanel implements InitUIAndAction {
 		ManagerList e = new ManagerList();
 //		NewManager e = new NewManager();
 		add(e, BorderLayout.CENTER);
+
 		
+//		RadarFaultForecast ff = new RadarFaultForecast();
+//		add(ff, BorderLayout.CENTER);
+		
+//		RadarPartsRequirements rr = new RadarPartsRequirements();
+//		add(rr, BorderLayout.CENTER);
 		//页面组件事件初始化
 		Action();
 	}

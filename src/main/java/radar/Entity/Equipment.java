@@ -17,6 +17,7 @@ public class Equipment {
 	private String equipName; //雷达编号
 	private Radar radarId;//雷达所属部队id，外键
 	private Integer equipStatus;//雷达状态，0:存在；1：已删除，Default：0
+	private System systemId; //分系统id，外键 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -48,6 +49,14 @@ public class Equipment {
 	}
 	public void setEquipStatus(Integer equipStatus) {
 		this.equipStatus = equipStatus;
+	}
+	@ManyToOne
+	@JoinColumn(name="systemId",nullable=false)
+	public System getSystemId() {
+		return systemId;
+	}
+	public void setSystemId(System systemId) {
+		this.systemId = systemId;
 	}
 
 }
