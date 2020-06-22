@@ -34,25 +34,25 @@ public class Button extends JButton implements InitUIAndAction{
 	public void Action() {
 		
 		this.addMouseListener(new MouseAdapter() {
-			//鼠标悬停按钮变色
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				setBackground(Color.GRAY);
-				setForeground(Color.BLACK);
-				repaint();
-			}
-			//鼠标离开按钮颜色恢复
-			@Override
-			public void mouseExited(MouseEvent e) {
-				setBackground(Color.WHITE);
-				setForeground(Color.BLACK);
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				setBackground(new Color(21,114,232));
-				setForeground(Color.WHITE);
-				repaint();
-			}			
+//			//鼠标悬停按钮变色
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				setBackground(Color.GRAY);
+//				setForeground(Color.BLACK);
+//				repaint();
+//			}
+//			//鼠标离开按钮颜色恢复
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//				setBackground(Color.WHITE);
+//				setForeground(Color.BLACK);
+//			}
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				setBackground(new Color(21,114,232));
+//				setForeground(Color.WHITE);
+//				repaint();
+//			}			
 		});
 	}
 	
