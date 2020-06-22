@@ -2,9 +2,7 @@ package radar.UI.Components;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JPanel;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -14,8 +12,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import net.miginfocom.swing.MigLayout;
 import java.awt.BorderLayout;
 
 public class BarChart extends JPanel{
@@ -28,12 +24,12 @@ public class BarChart extends JPanel{
 	private String title;
 	private String xTitle;
 	private String yTitle;
+	@SuppressWarnings("unused")
 	private String className;
+	@SuppressWarnings("unused")
 	private String methodName;
-	
 	private ChartPanel chartPanel;
 	private JFreeChart barChart;
-	
 	public BarChart(String title,String xTitle,String yTitle,String className,String methodName) {
 		
 		this.title = title;
@@ -42,9 +38,7 @@ public class BarChart extends JPanel{
 		this.className = className;
 		this.methodName = methodName;
 		setLayout(new BorderLayout(0, 0));
-		
 //		init();
-		
 	}
 	
 	public void init() {

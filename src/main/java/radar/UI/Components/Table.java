@@ -4,10 +4,17 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
+import radar.SpringUtil;
+import radar.Entity.Fault;
+import radar.Entity.Record;
+import radar.ServiceImpl.FaultRecordServiceImpl;
+import radar.ServiceImpl.RecordServiceImpl;
 import radar.SwingWorker.SwingWorkerForTable;
 import radar.Tools.TableStyleUI;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class Table extends JTable {
 	
@@ -174,5 +181,264 @@ public class Table extends JTable {
                     % pageCount;// 最后一页的数据数
         }
     }
+//根据条件筛选开机活动记录表
+    public void getRecordByRadarAndTime(String radarNumber, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+    	 SpringUtil s = new SpringUtil();
+    	 RecordServiceImpl RecordServiceImpl = (RecordServiceImpl) s.getBean("RecordServiceImpl"); 
+     	List<Record> records =RecordServiceImpl.getAllRecords();
+    	 Object[][] data = getDataByConditions(records,radarNumber,startTime,endTime);
+    	if (data != null&&data.length>0) {
+			  initResultData(data);
+			  model = new DefaultTableModel(getPageData(), header);
+		  } 
+		  else { 
+			  //如果结果集中没有数据，那么就用空来代替数据集中的每一行 
+			  Object[][] nothing = { {},{}, {}, {}, {}, {},{} };
+			  model = new DefaultTableModel(nothing, header);
+			  totalRowCount = 0;
+		  }
+		  setModel(model);
+		  DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+	        r.setHorizontalAlignment(JLabel.CENTER);
+	        setDefaultRenderer(Object.class, r);
+	        setStyle();
+	}
+
+	private Object[][] getDataByConditions(List<Record> record, String radarNumber, String startTime,
+			String endTime) {
+		// TODO Auto-generated method stub
+		if(record.size()>0){
+			  Object[][] data = new Object[record.size()][5];
+	            //data的first size;
+	            int dataCounts = 0;
+	            for(int i=0;i<record.size();i++){
+	            	Record r = record.get(i);
+	            	Boolean addItems = false;
+	            	String IsDefault;
+	            	String HRadarNumber;
+	            	if(r.getRadarId()!=null) {
+	            		HRadarNumber= r.getRadarId().getRadarName();
+	            	}else {
+	            		HRadarNumber="";
+	            	}
+	            	Date BRadarStartTime = r.getRecordStartDate();
+	            	Date BRadrEndTime = r.getRecordEndDate();
+            	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                  String HRadarStartTime = sdf.format(BRadarStartTime); // 把带时分秒的 date 转为 yyyy-MM-dd 格式的字符串
+                  String HRadarEndTime = sdf.format(BRadrEndTime); // 把带时分秒的 date 转为 yyyy-MM-dd 格式的字符串
+
+
+	            	if(r.getWithFault()==0){
+	            		IsDefault="否";
+	            	}else{
+	            		IsDefault="是";
+
+	            	}
+	            	String activityName;
+	            	if(r.getActivityId()!=null) {
+	            		activityName=r.getActivityId().getActivityName();
+	            	}else {
+	            		activityName="";
+	            	}
+	            	
+	            	//只有雷达编号
+	            	if((radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+        			   &&(startTime==null||startTime.equals(""))
+            		   &&(endTime==null||endTime.equals(""))){
+	            		addItems=true;
+	            	}
+	            	//只有开机时间
+	            
+	            	else if((startTime==HRadarStartTime||startTime.equals(HRadarStartTime))
+	            			   &&(radarNumber==null||radarNumber.equals(""))
+		            		   &&(endTime==null||endTime.equals(""))){
+	            		addItems=true;
+	            	}
+	            	//只有关机时间
+	            	else if((startTime==null||startTime.equals(""))
+	            			   &&(radarNumber==null||radarNumber.equals(""))
+		            		   &&(endTime==HRadarEndTime||endTime.equals(HRadarEndTime))){
+	            		addItems=true;
+
+	            	}
+	            	//雷达编号、开机时间、关机时间都有
+	            	else if((startTime==HRadarStartTime||startTime.equals(HRadarStartTime))
+	            			   &&(radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+		            		   &&(endTime==HRadarEndTime||endTime.equals(HRadarEndTime))){
+	            		addItems=true;
+
+	            	}
+	            	//只有雷达编号、开机时间
+	            	else if((startTime==HRadarStartTime||startTime.equals(HRadarStartTime))
+	            			   &&(radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+		            		   &&(endTime==null||endTime.equals(""))){
+	            		addItems=true;
+	            	}
+	            	//只有雷达编号、关机时间
+	            	else if((startTime==null||startTime.equals(""))
+	            			   &&(radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+		            		   &&(endTime==HRadarEndTime||endTime.equals(HRadarEndTime))){
+	            		addItems=true;
+
+	            	}
+	            	//只有开机时间、关机时间
+	            	else if((startTime==HRadarStartTime||startTime.equals(HRadarStartTime))
+	            			&&(endTime==HRadarEndTime||endTime.equals(HRadarEndTime))
+	            			&&(radarNumber==null||radarNumber.equals(""))){
+	            		addItems=true;
+	            	}
+	            	else if((startTime==null||startTime.equals(""))
+	            			&&(endTime==null||endTime.equals(""))
+	            			&&(radarNumber==null||radarNumber.equals(""))){
+	            		addItems=true;
+
+	            	}
+	            
+	            	if(addItems) {
+	    				Object[] a = {r.getRecordId(),dataCounts+1,HRadarNumber,r.getRecordStartDate(),r.getRecordEndDate(),activityName,IsDefault};
+	                    data[dataCounts] = a;// 把数组的值赋给二维数组的一行
+	                    dataCounts++;
+	            	}
+	            }
+	            Object[][] result = new Object[dataCounts][5];
+	            for(int i=0;i<dataCounts;i++) {
+	            	result[i] = data[i];
+	            }
+	            return result;
+		}
+		return null;
+	}
+	//根据条件筛选故障记录表
+	public void getFaultRecordByRadarAndTime(String radarNumber, String faultType, String faultDateText) {
+		 SpringUtil s = new SpringUtil();
+		  FaultRecordServiceImpl faultRecordServiceImpl = (FaultRecordServiceImpl) s.getBean("FaultRecordServiceImpl"); 
+		  List<Fault> faults = faultRecordServiceImpl.getAllFaultRecords();
+		Object[][] data = getFaultDataByConditions(faults,radarNumber,faultType,faultDateText);
+
+		if (data != null&&data.length>0) {
+			  initResultData(data);
+			  model = new DefaultTableModel(getPageData(), header);
+		  } 
+		  else { 
+			  //如果结果集中没有数据，那么就用空来代替数据集中的每一行 
+			  Object[][] nothing = { {},{}, {}, {}, {}, {},{} };
+			  model = new DefaultTableModel(nothing, header);
+			  totalRowCount = 0;
+		  }
+		  setModel(model);
+		  DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+	        r.setHorizontalAlignment(JLabel.CENTER);
+	        setDefaultRenderer(Object.class, r);
+	        setStyle();
+	}
+	private Object[][] getFaultDataByConditions(List<Fault> fault, String radarNumber, String faultType,
+			String faultDateText) {
+		// TODO Auto-generated method stub
+		if(fault.size()>0){
+			  Object[][] data = new Object[fault.size()][5];
+	            //data的first size;
+	            int dataCounts = 0;
+	            for(int i=0;i<fault.size();i++){
+	            	Fault f = fault.get(i);
+	            	Boolean addItems = false;
+	            	//查询结果中的雷达编号
+	            	String HRadarNumber;
+	            	if(f.getRecordId()!=null&&f.getRecordId().getRadarId()!=null) {
+	            		HRadarNumber=f.getRecordId().getRadarId().getRadarName();
+	            	}else {
+	            		HRadarNumber="";
+	            	}
+	            	//查询结果中的故障类型
+	            	String HFaultName;
+	            	if(f.getFaultTypeId()!=null) {
+	            		HFaultName=f.getFaultTypeId().getFaultName();
+	            	}else {
+	            		HFaultName="";
+	            	}
+	            	Date BFaultDate = f.getFaultDate();
+	            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	            	//查询结果中的故障发生时刻
+	            	String HFaultDate = sdf.format(BFaultDate); // 把带时分秒的 date 转为 yyyy-MM-dd 格式的字符串
+	            	String radarName;
+	            	if(f.getRecordId()!=null&&f.getRecordId().getRadarId()!=null) {
+	            		radarName =f.getRecordId().getRadarId().getRadarName();
+	            	}else {
+	            		radarName="";
+	            	}
+	            	String faultName;
+	            	if(f.getFaultTypeId()!=null) {
+	            		faultName=f.getFaultTypeId().getFaultName();
+	            	}else {
+	            		faultName="";
+	            	}
+	            	//只有雷达编号
+	            	if((radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+      			   &&(faultType==null||faultType.equals(""))
+          		   &&(faultDateText==null||faultDateText.equals(""))){
+	            		addItems=true;
+
+	            	}
+	            	//只有故障类型
+	            
+	            	else if((faultType==HFaultName||faultType.equals(HFaultName))
+	            			   &&(radarNumber==null||radarNumber.equals(""))
+		            		   &&(faultDateText==null||faultDateText.equals(""))){
+	            		addItems=true;
+	            	}
+	            	//只有故障发生时刻
+	            	else if((faultDateText==HFaultDate||faultDateText.equals(HFaultDate))
+	            			   &&(radarNumber==null||radarNumber.equals(""))
+		            		   &&(faultType==null||faultType.equals(""))){
+	            		addItems=true;
+
+	            	}
+	            	//雷达编号、故障类型、时刻
+	            	else if((radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+	            			   &&(faultType==HFaultName||faultType.equals(HFaultName))
+		            		   &&(faultDateText==HFaultDate||faultDateText.equals(HFaultDate))){
+	            		addItems=true;
+
+	            	}
+	            	//只有雷达编号、故障时刻
+	            	else if((radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+	            			   &&(faultDateText==HFaultDate||faultDateText.equals(HFaultDate))
+		            		   &&(faultType==null||faultType.equals(""))){
+	            		addItems=true;
+	            	}
+	            	//只有雷达编号、故障类型
+	            	else if((radarNumber==HRadarNumber||radarNumber.equals(HRadarNumber))
+	            			   &&(faultType==HFaultName||faultType.equals(HFaultName))
+		            		   &&(faultDateText==null||faultDateText.equals(""))){
+	            		addItems=true;
+
+	            	}
+	            	//只有故障类型、故障时刻
+	            	else if((faultType==HFaultName||faultType.equals(HFaultName))
+	            			&&(faultDateText==HFaultDate||faultDateText.equals(HFaultDate))
+	            			&&(radarNumber==null||radarNumber.equals(""))){
+	            		addItems=true;
+	            	}
+	            	else if((radarNumber==null||radarNumber.equals(""))
+	            			&&(faultType==null||faultType.equals(""))
+	            			&&(faultDateText==null||faultDateText.equals(""))){
+	            		addItems=true;
+
+	            	}
+	            
+	            	if(addItems) {
+	    				Object[] a = {f.getFaultId(),dataCounts+1,radarName,faultName,f.getFaultDate(),f.getFaultLocation(),f.getFaultReason()};
+	                    data[dataCounts] = a;// 把数组的值赋给二维数组的一行
+	                    dataCounts++;
+	            	}
+	            }
+	            Object[][] result = new Object[dataCounts][5];
+	            for(int i=0;i<dataCounts;i++) {
+	            	result[i] = data[i];
+	            }
+	            return result;
+		}
+		return null;
+	}
 
 }

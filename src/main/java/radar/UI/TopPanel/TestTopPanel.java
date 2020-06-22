@@ -1,13 +1,9 @@
 package radar.UI.TopPanel;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import net.miginfocom.swing.MigLayout;
 import radar.UI.Components.Button;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

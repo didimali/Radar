@@ -23,6 +23,7 @@ public class ContentPanel extends JPanel{
 	 * 内容面板顶部栏
 	 */
 	protected JPanel contentTop = new JPanel();
+	
 	/**
 	 * 内容面板内容部分
 	 */

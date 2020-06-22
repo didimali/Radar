@@ -1,17 +1,11 @@
 package radar.UI.ContentPanel;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import net.miginfocom.swing.MigLayout;
 import radar.UI.Components.BarChart;
 import radar.UI.Components.Button;
@@ -89,7 +83,8 @@ public class Example extends ContentPanel implements InterfaceForContentPanel{
 	/**
 	 * 添加内容面板躯干
 	 */
-	public void initContentBody() {		
+	public void initContentBody() {	
+		//表示一行有两个单元格，一列有两个单元格，	grow: x 方向按上一级的宽度进行延伸。注意如果此处不添加grow，那么在添加组件的时候使用growx会没有效果。
 		ContentBody.setLayout(new MigLayout("", "[grow][grow]", "[grow][grow]"));
 		
 		pie = new PieChart("饼图标题","TestServiceImpl", "getPieData");

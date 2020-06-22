@@ -32,10 +32,6 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
 public class Chooser extends JPanel{
-	
-	/*
-	 * 日历控件
-	 */
 
     private static final long serialVersionUID = -5384012731547358720L;
     
@@ -80,7 +76,9 @@ public class Chooser extends JPanel{
     public static Chooser getInstance(java.util.Date date){
         return getInstance(date, DEFAULTFORMAT);
     }
-
+//    public static Chooser getInstance(String format){
+//        return getInstance(new java.util.Date(), format);
+//    }
     public static Chooser getInstance(){
         return getInstance(new java.util.Date(), DEFAULTFORMAT);
     }
@@ -303,9 +301,40 @@ public class Chooser extends JPanel{
         private static final long serialVersionUID = 8135037333899746736L;
         @SuppressWarnings("unused")
 		private JLabel dateLabel;
+        
+//        public FooterPanel(){
+//            super(new BorderLayout());
+//            initFooterPanel();
+//        }
+//        private void initFooterPanel(){
+//            dateLabel = new JLabel("Today is : "+sdf.format(new java.util.Date()));
+//            dateLabel.addMouseListener(new MouseListener() {
+//                
+//                @Override
+//                public void mouseReleased(MouseEvent e) {}
+//                @Override
+//                public void mousePressed(MouseEvent e) {
+//                    calendar.setTime(new Date());
+//                    refresh();
+//                    commit();
+//                }
+//                @Override
+//                public void mouseExited(MouseEvent e) {
+//                    dateLabel.setForeground(Color.BLACK);
+//                }
+//                @Override
+//                public void mouseEntered(MouseEvent e) {
+//                    dateLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//                    dateLabel.setForeground(hoverColor);
+//                }
+//                @Override
+//                public void mouseClicked(MouseEvent e) {}
+//            });
+//            this.add(dateLabel);
+//        }
         public void updateDate(){};
     }
-    
+    //refresh all panel
     private void refresh() {
         titlePanel.updateDate();
         bodyPanel.updateDate();
@@ -489,4 +518,30 @@ public class Chooser extends JPanel{
             }
         }
     }
+    
+    
+    /**
+     * @param args
+     */
+//    public static void main(String[] args) {
+//        JFrame jf = new JFrame("Date Picker Test");
+//        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        jf.setLayout(null);
+//        jf.setBounds(400, 200, 600, 400);
+//        
+//        Chooser ser = Chooser.getInstance();
+//        javax.swing.JTextField text = new JTextField();
+//        text.setBounds(10, 10, 100, 30);
+//        text.setText("2013-10-11");
+//        ser.register(text);
+//        
+//        Chooser ser2 = Chooser.getInstance("yyyy年MM月dd日");
+//        JLabel label = new JLabel("please click me.");
+//        label.setBounds(10, 50, 200, 30);
+//        ser2.register(label);
+//        
+//        jf.add(text);
+//        jf.add(label);
+//        jf.setVisible(true);
+//    }
 }

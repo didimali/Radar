@@ -6,7 +6,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
 import java.awt.BorderLayout;
 
 
@@ -50,8 +49,12 @@ public class SystemEntrance extends JFrame{
 //       	setResizable(false);
        	Home home = new Home();
        	home.initUI();
+//       	RadarActivityRecord RadarActivityRecord= new RadarActivityRecord();
+//       	RadarActivityRecord.init();
         // 添加面板
         getContentPane().add(home);
+//      getContentPane().add(RadarActivityRecord);
+
         // 设置界面可见
         setVisible(true);
 	    }
