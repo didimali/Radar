@@ -2,12 +2,16 @@ package radar.UI.ContentPanel;
 
 import radar.UI.Components.ContentPanel;
 
+/**
+ *雷达管理-大数据分析-备件需求（个性化维修资源定制）
+ */
 public class RadarPartsRequirements extends ContentPanel implements InterfaceForContentPanel{
-
-	/**
-	 *雷达管理-大数据分析-备件需求（个性化维修资源定制）
-	 */
+		
 	private static final long serialVersionUID = -4392998078746436727L;
+	
+	public RadarPartsRequirements() {
+		
+	}
 
 	@Override
 	public void init() {
