@@ -14,7 +14,7 @@ public class SwingWorkerForComboBox extends SwingWorker<Object[],Void>{
 	private String className;
 	private String methodName;
 	
-	/*
+	/**
 	 * 为下拉框提供数据的工具类
 	 * @param box:需要数据的下拉框
 	 * @param className:下拉框服务实现层的名字

@@ -41,6 +41,7 @@ import radar.UI.Components.BigDataPanel;
 import radar.UI.Components.BigDataPanel2;
 import radar.UI.Components.ContentPanel;
 
+
 public class RadarPartsRequirements extends BigDataPanel2 implements InterfaceForContentPanel{
 
 	/**
@@ -72,6 +73,7 @@ public class RadarPartsRequirements extends BigDataPanel2 implements InterfaceFo
 	
 	
 	
+
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
