@@ -1,5 +1,11 @@
 package radar.UI.ContentPanel;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+
+import net.miginfocom.swing.MigLayout;
 import radar.UI.Components.Button;
 import radar.UI.Components.ComboBox;
 import radar.UI.Components.ContentPanel;
@@ -18,7 +24,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class NewManager extends ContentPanel implements InterfaceForContentPanel {
-
 
 	/**
 	 * 部队管理-部队详情-部队新建、修改、删除页面
@@ -183,7 +188,8 @@ public class NewManager extends ContentPanel implements InterfaceForContentPanel
 
 	@Override
 	public void initContentTop() {
-		
+	contentTop.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
+
 	}
 
 	@Override

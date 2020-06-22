@@ -2,6 +2,7 @@ package radar.UI;
 
 import javax.swing.JPanel;
 import radar.Tools.InitUIAndAction;
+
 import radar.UI.ContentPanel.ManagerExportExcel;
 import radar.UI.ContentPanel.ManagerFault;
 import radar.UI.ContentPanel.ManagerHealth;
@@ -87,6 +88,7 @@ public class Home extends JPanel implements InitUIAndAction {
 //		LRadar leftPanel = new LRadar();
 		leftPanel.b1();
 		add(leftPanel, BorderLayout.WEST);
+
 		
 		TManagerDetails topPanel = new TManagerDetails();
 //		TDataAnalyse topPanel = new TDataAnalyse();

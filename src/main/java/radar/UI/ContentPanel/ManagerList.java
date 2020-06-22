@@ -12,8 +12,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
@@ -68,6 +66,11 @@ public class ManagerList extends ContentPanel{
 		contentTop.add(panel, "cell 0 0,grow");		
 		contentTop.add(separator, "cell 0 1,growx,aligny bottom");
 		
+
+		String[] header = { "序号", "部队编号", "所在位置","部队状态","下属故障雷达数量"};
+		table = new Table("TestServiceImpl", "getManagers",header);
+		JScrollPane scrollPane = new JScrollPane(table);
+    
 		initContentBody();	
 		ContentBody.add(scrollPane, BorderLayout.CENTER);
 		

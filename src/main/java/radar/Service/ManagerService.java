@@ -1,5 +1,10 @@
 package radar.Service;
 
+
+import java.util.List;
+
+import radar.Entity.Manager;
+
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -9,6 +14,8 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  */
 public interface ManagerService {
+  //获取下拉框部队数据方法示例
+		Object[] getManagers();
 	
 	/**
 	 * 获取部队下拉框数据
