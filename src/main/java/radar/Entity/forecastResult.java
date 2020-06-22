@@ -18,10 +18,9 @@ public class forecastResult {
 	
 	private Integer forecastResultId;//故障预测记录id
 	private Radar radarId;//	所属雷达id,外键
+	private System systemId;  //分系统id,外键
 	private faultType faultTypeId;//	故障类型id,外键
-	private String forecastChance;//	预测故障概率
-	private String forecastLocation;//	预测故障部位
-	private Date forecastDate;//	故障发生时间
+	private Equipment equipId; //设备id(故障位置),外键
 	private Date assessDate;//	评估时间
 
 
@@ -44,6 +43,15 @@ public class forecastResult {
 		this.radarId = radarId;
 	}
 	@ManyToOne
+	@JoinColumn(name="systemId")
+	public System getSystemId() {
+		return systemId;
+	}
+
+	public void setSystemId(System systemId) {
+		this.systemId = systemId;
+	}
+	@ManyToOne
 	@JoinColumn(name="faultTypeId")
 	public faultType FaultTypeId() {
 		return faultTypeId;
@@ -51,33 +59,14 @@ public class forecastResult {
 	public void setFaultTypeId(faultType faultTypeId) {
 		this.faultTypeId = faultTypeId;
 	}
-	
-	@Column(name="forecastChance",length=16)
-	public String getForecastChance() {
-		return forecastChance;
+	@ManyToOne
+	@JoinColumn(name="equipId")
+	public Equipment getEquipId() {
+		return equipId;
 	}
 
-	public void setForecastChance(String forecastChance) {
-		this.forecastChance = forecastChance;
-	}
-	
-	@Column(name="forecastLocation",length=32)
-	public String getForecastLocation() {
-		return forecastLocation;
-	}
-
-	public void setForecastLocation(String forecastLocation) {
-		this.forecastLocation = forecastLocation;
-	}
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Column(name="forecastDate")
-	public Date getForecastDate() {
-		return forecastDate;
-	}
-
-	public void setForecastDate(Date forecastDate) {
-		this.forecastDate = forecastDate;
+	public void setEquipId(Equipment equipId) {
+		this.equipId = equipId;
 	}
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -89,4 +78,5 @@ public class forecastResult {
 	public void setAssessDate(Date assessDate) {
 		this.assessDate = assessDate;
 	}
+
 	}

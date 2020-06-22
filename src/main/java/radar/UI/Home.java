@@ -12,7 +12,13 @@ import radar.UI.Components.PieChart;
 import radar.UI.Components.Table;
 import radar.UI.ContentPanel.Example;
 import radar.UI.ContentPanel.ManagerList;
+import radar.UI.ContentPanel.RadarFaultForecast;
+import radar.UI.ContentPanel.RadarHealthAssess;
+import radar.UI.ContentPanel.RadarPartsRequirements;
+import radar.UI.LeftPanel.LManager;
+import radar.UI.LeftPanel.LRadar;
 import radar.UI.LeftPanel.TestLeftPanel;
+import radar.UI.TopPanel.TDataAnalyse;
 import radar.UI.TopPanel.TestTopPanel;
 
 import java.awt.BorderLayout;
@@ -47,15 +53,25 @@ public class Home extends JPanel implements InitUIAndAction {
 	@Override
 	public void initUI() {
 		//页面组件初始化
-		JPanel leftPanel = new TestLeftPanel();
+		LRadar leftPanel = new LRadar();
+		leftPanel.b1();
 		add(leftPanel, BorderLayout.WEST);
 		
-		JPanel topPanel = new TestTopPanel();
+		TDataAnalyse topPanel = new TDataAnalyse();
+		topPanel.b2();
 		add(topPanel, BorderLayout.NORTH);
 		
 		Example e = new Example();
 		add(e, BorderLayout.CENTER);
 		
+		RadarHealthAssess hh = new RadarHealthAssess();
+		add(hh, BorderLayout.CENTER);
+		
+//		RadarFaultForecast ff = new RadarFaultForecast();
+//		add(ff, BorderLayout.CENTER);
+		
+//		RadarPartsRequirements rr = new RadarPartsRequirements();
+//		add(rr, BorderLayout.CENTER);
 		//页面组件事件初始化
 		Action();
 	}

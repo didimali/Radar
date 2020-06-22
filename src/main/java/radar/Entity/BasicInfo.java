@@ -18,7 +18,7 @@ public class BasicInfo {
 	private String paramMax; /*参数最小值，开关量：0*/
 	private String paramMin; /*参数最大值，开关量：0*/
 	private Integer paramStatus;/* 参数状态，0:存在；1：已删除 ；Default：0 */
-	
+	private Integer equipId; //所属部件id，避免冲突采用非外键形式
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "paramId",unique=true,nullable=false, length = 11)
@@ -69,5 +69,12 @@ public class BasicInfo {
 	}
 	public void setParamStatus(Integer paramStatus) {
 		this.paramStatus = paramStatus;
+	}
+	@Column(name = "equipId",length = 11)
+	public Integer getEquipId() {
+		return equipId;
+	}
+	public void setEquipId(Integer equipId) {
+		this.equipId = equipId;
 	}
 }
